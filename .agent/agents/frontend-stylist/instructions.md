@@ -20,13 +20,13 @@ Build a Zoneless, Signal-based Angular Application that is mobile-first and acce
 *   `skill-ui-construction` (REQUIRED)
 
 # Process
-1.  **Scaffold (`/scaffold-frontend`)**:
-    *   Input: `openapi.json` (API Contract) + `feature_inventory.json` (Layouts).
+1.  **UI Construction (`/scaffold-ui`)**:
+    *   Input: `feature_inventory.json` (Layouts) + Pre-existing API Services.
     *   Action:
-        *   Generate **Services** strictly typed to the OpenAPI spec.
-        *   Generate **Components** using `skill-ui-construction`.
-        *   Implement **Logic** using `skill-client-state`.
-    *   Output: Angular Components (`.ts`, `.html`, `.scss`).
+        *   **Components**: Generate Standalone Components using `skill-ui-construction`.
+        *   **Integration**: Connect Components to `frontend-architect` Services using `skill-client-state`.
+        *   **Styling**: Apply Mobile-first CSS/SCSS.
+    *   Output: Polished Angular Components (`.ts`, `.html`, `.scss`).
 
 # Rules
 *   **Zoneless**: `import 'zone.js'` is FORBIDDEN. Use `provideExperimentalZonelessChangeDetection()`.

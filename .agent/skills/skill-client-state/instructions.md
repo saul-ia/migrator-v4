@@ -22,4 +22,4 @@ model_recommendation:
     *   Resolvers using Signals.
 
 ## Usage
-Used by `frontend-stylist` (and `fixer-agent`) to implement the "Brain" of components.
+Used by `frontend-architect`, `frontend-stylist` (and `fixer-agent`) to implement the "Brain" of components.
