@@ -13,6 +13,9 @@
     <!-- Mermaid JS (Standard) -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
         :root {
             /* Premium Dark Theme Palette */
@@ -30,12 +33,18 @@
             --border: #2d3748;
             --glass: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.05);
+            --nav-bg: rgba(15, 17, 21, 0.8);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
         }
 
         body {
@@ -65,7 +74,7 @@
         /* HEADER */
         header {
             background: radial-gradient(circle at top center, #1e1b4b, var(--bg-dark));
-            padding: 4rem 2rem;
+            padding: 4rem 2rem 2rem 2rem;
             text-align: center;
             border-bottom: 1px solid var(--border);
             position: relative;
@@ -85,6 +94,57 @@
             color: var(--text-muted);
             max-width: 600px;
             margin: 0 auto;
+            margin-bottom: 2rem;
+        }
+
+        /* NAVIGATION MENU */
+        .sticky-nav {
+            position: sticky;
+            top: 1rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            margin-botom: 2rem;
+            /* Keep some space below nav */
+        }
+
+        .nav-container {
+            background: rgba(24, 27, 33, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            display: flex;
+            gap: 0.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-item {
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* .active state could be added with JS based on scroll position */
+
+        .nav-icon {
+            width: 18px;
+            height: 18px;
         }
 
         .logos {
@@ -120,6 +180,8 @@
             max-width: 1600px;
             /* Wider for big diagrams */
             margin: 0 auto;
+            scroll-margin-top: 100px;
+            /* Offset for sticky nav */
         }
 
         .section-title {
@@ -148,6 +210,8 @@
             padding: 2rem;
             box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
             margin-bottom: 2rem;
+            overflow-x: auto;
+            /* Handle table overflow */
         }
 
         /* SECTION 1: SYSTEM STRUCTURE (.agent) */
@@ -193,6 +257,8 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 0.9rem;
+            min-width: 800px;
+            /* Ensure readability */
         }
 
         th,
@@ -342,6 +408,22 @@
             .mermaid svg {
                 min-width: 800px;
             }
+
+            .nav-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                border-radius: 20px;
+            }
+
+            /* Table responsiveness */
+            table {
+                font-size: 0.8rem;
+            }
+
+            th,
+            td {
+                padding: 0.5rem;
+            }
         }
     </style>
 </head>
@@ -352,6 +434,27 @@
         <div class="hero-title">AI MIGRATOR</div>
         <p class="hero-subtitle">Automated Legacy Transformation Engine: VB6 to Angular 21 & Node 24</p>
 
+        <!-- STICKY NAVBAR -->
+        <div class="sticky-nav">
+            <nav class="nav-container">
+                <a href="#structure" class="nav-item">
+                    <i data-lucide="folder-tree" class="nav-icon"></i> System Structure
+                </a>
+                <a href="#models" class="nav-item">
+                    <i data-lucide="brain-circuit" class="nav-icon"></i> AI Models
+                </a>
+                <a href="#flowchart" class="nav-item">
+                    <i data-lucide="workflow" class="nav-icon"></i> Flowchart
+                </a>
+                <a href="#hierarchy" class="nav-item">
+                    <i data-lucide="list-tree" class="nav-icon"></i> Hierarchy
+                </a>
+                <a href="#stack" class="nav-item">
+                    <i data-lucide="layers" class="nav-icon"></i> Tech Stack
+                </a>
+            </nav>
+        </div>
+
         <div class="logos">
             <div class="logo-badge">🤖 Agentic Core</div>
             <div class="logo-badge">⚡ Zoneless Angular</div>
@@ -361,11 +464,12 @@
     </header>
 
     <!-- SECTION 1: STRUCTURE -->
-    <section>
+    <section id="structure">
         <h2 class="section-title">1. System Structure (.agent)</h2>
         <div class="glass-panel">
             <div class="tree-view">
                 <div class="tree-item folder">.agent/</div>
+                <!-- AGENTS -->
                 <div class="tree-item folder" style="padding-left: 3rem;">agents/</div>
                 <div class="tree-item folder" style="padding-left: 4.5rem;">auditor-agent/</div>
                 <div class="tree-item file" style="padding-left: 6rem;">instructions.md</div>
@@ -373,11 +477,14 @@
                 <div class="tree-item file" style="padding-left: 6rem;">instructions.md</div>
                 <div class="tree-item folder" style="padding-left: 4.5rem;">fixer-agent/</div>
                 <div class="tree-item file" style="padding-left: 6rem;">instructions.md</div>
+                <div class="tree-item folder" style="padding-left: 4.5rem;">frontend-architect/</div>
+                <div class="tree-item file" style="padding-left: 6rem;">instructions.md</div>
                 <div class="tree-item folder" style="padding-left: 4.5rem;">frontend-stylist/</div>
                 <div class="tree-item file" style="padding-left: 6rem;">instructions.md</div>
                 <div class="tree-item folder" style="padding-left: 4.5rem;">qa-sentinel/</div>
                 <div class="tree-item file" style="padding-left: 6rem;">instructions.md</div>
 
+                <!-- SKILLS -->
                 <div class="tree-item folder" style="padding-left: 3rem;">skills/</div>
                 <div class="tree-item folder" style="padding-left: 4.5rem;">skill-api-construction/</div>
                 <div class="tree-item file" style="padding-left: 6rem;">instructions.md</div>
@@ -396,9 +503,11 @@
                 <div class="tree-item folder" style="padding-left: 4.5rem;">skill-ui-construction/</div>
                 <div class="tree-item file" style="padding-left: 6rem;">instructions.md</div>
 
+                <!-- RULES -->
                 <div class="tree-item folder" style="padding-left: 3rem;">rules/</div>
                 <div class="tree-item file" style="padding-left: 4.5rem;">RULES.md</div>
 
+                <!-- WORKFLOWS -->
                 <div class="tree-item folder" style="padding-left: 3rem;">workflows/</div>
                 <div class="tree-item file" style="padding-left: 4.5rem;">ORCHESTRATE.md</div>
                 <div class="tree-item file" style="padding-left: 4.5rem;">audit-legacy.md</div>
@@ -408,29 +517,27 @@
                 <div class="tree-item file" style="padding-left: 4.5rem;">scaffold-backend.md</div>
                 <div class="tree-item file" style="padding-left: 4.5rem;">scaffold-frontend.md</div>
 
+                <!-- OUTPUT -->
                 <div class="tree-item folder" style="padding-left: 3rem;">output/ (Generated)</div>
-                <div class="tree-item file" style="padding-left: 4.5rem;">[APP_NAME]_[TIMESTAMP]/</div>
-                <div class="tree-item file" style="padding-left: 6rem;">audit-report.json</div>
-                <div class="tree-item file" style="padding-left: 6rem;">feature_inventory.json</div>
-                <div class="tree-item file" style="padding-left: 6rem;">src/</div>
-                <div class="tree-item file" style="padding-left: 6rem;">...</div>
+                <div class="tree-item file" style="padding-left: 4.5rem;">(Not yet generated, waiting for first
+                    execution)</div>
             </div>
         </div>
     </section>
 
     <!-- SECTION 2: MODELS -->
-    <section>
+    <section id="models">
         <h2 class="section-title">2. AI Model Configuration (Agents & Skills)</h2>
         <div class="glass-panel">
             <table>
                 <thead>
                     <tr>
-                        <th width="20%">Component Type</th>
-                        <th width="15%">Component Name</th>
-                        <th width="20%">Primary Model</th>
-                        <th width="20%">Secondary Model</th>
-                        <th width="20%">Tertiary Model</th>
-                        <th width="5%">Justification</th>
+                        <th width="10%">Type</th>
+                        <th width="15%">Name</th>
+                        <th width="15%">Primary Model</th>
+                        <th width="15%">Secondary Model</th>
+                        <th width="15%">Tertiary Model</th>
+                        <th width="30%">Justification</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -450,6 +557,14 @@
                         <td><span class="model-tag tag-thinking">Claude Opus 4.6 (Thinking)</span></td>
                         <td><span class="model-tag tag-high">Gemini 3 Pro (High)</span></td>
                         <td>Complex schema mapping requires "Thinking" models.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Agent</strong></td>
+                        <td>Frontend Architect</td>
+                        <td><span class="model-tag tag-high">Claude Sonnet 4.5</span></td>
+                        <td><span class="model-tag tag-thinking">Claude Sonnet 4.5 (Thinking)</span></td>
+                        <td><span class="model-tag tag-high">Gemini 3 Pro (High)</span></td>
+                        <td>Architecture & Routing definition needs strong coding capabilities.</td>
                     </tr>
                     <tr>
                         <td><strong>Agent</strong></td>
@@ -524,1140 +639,191 @@
                         <td><span class="model-tag tag-med">GPT-OSS 120B</span></td>
                         <td>Scanning and basic test generation is suitable for faster models.</td>
                     </tr>
+                    <tr>
+                        <td><strong>Skill</strong></td>
+                        <td>Skill Reporting</td>
+                        <td><span class="model-tag tag-fast">Gemini 3 Pro (Low)</span></td>
+                        <td><span class="model-tag tag-fast">Gemini 3 Flash</span></td>
+                        <td><span class="model-tag tag-med">GPT-OSS 120B (Medium)</span></td>
+                        <td>Metrics aggregation is a low-reasoning task.</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </section>
 
     <!-- SECTION 3: MERMAID FLOWCHART (STABLE) -->
-    <section>
-        <h2 class="section-title">3. Orchestration Flow</h2>
+    <section id="flowchart">
+        <h2 class="section-title">3. Full Orchestration Execution Flow</h2>
         <div class="glass-panel mermaid-container">
-            <div class="mermaid" data-processed="true"><svg id="mermaid-1771332614582" width="100%"
-                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="flowchart"
-                    style="max-width: 764.0390625px;" viewBox="0 0 764.0390625 2414.515625"
-                    role="graphics-document document" aria-roledescription="flowchart-v2">
-                    <style>
-                        #mermaid-1771332614582 {
-                            font-family: "trebuchet ms", verdana, arial, sans-serif;
-                            font-size: 16px;
-                            fill: #ccc;
-                        }
+            <div class="mermaid">
+                flowchart TD
+                %% Nodes
+                Start((START))
+                RuleNode["Read RULES.md<br />Load Global Axioms"]
 
-                        @keyframes edge-animation-frame {
-                            from {
-                                stroke-dashoffset: 0;
-                            }
-                        }
+                subgraph Phase1 ["Phase 1: Deep Audit"]
+                W_Audit["Workflow: audit-legacy.md"]
+                Ag_Audit["Agent: Auditor Agent"]
+                Sk_Dec["Skill: Legacy Decoder"]
+                Art_AuditReport["Artifact: audit-report.json"]
+                Art_FeatInv["Artifact: feature_inventory.json"]
+                end
 
-                        @keyframes dash {
-                            to {
-                                stroke-dashoffset: 0;
-                            }
-                        }
+                subgraph Phase2 ["Phase 2: Data Foundation"]
+                W_MigDB["Workflow: migrate-db.md"]
+                Ag_Back["Agent: Backend Architect"]
+                Sk_Data["Skill: Data Engineering"]
+                Art_Prisma["schema.prisma"]
+                Art_Client["node_modules/@prisma/client"]
+                end
 
-                        #mermaid-1771332614582 .edge-animation-slow {
-                            stroke-dasharray: 9, 5 !important;
-                            stroke-dashoffset: 900;
-                            animation: dash 50s linear infinite;
-                            stroke-linecap: round;
-                        }
+                subgraph Phase3 ["Phase 3: Backend Core"]
+                W_ScafBack["Workflow: scaffold-backend.md"]
+                Ag_Back2["Agent: Backend Architect"]
+                Sk_API["Skill: API Construction"]
+                Art_OpenAPI["src/openapi.json"]
+                Art_Express["Express App Code"]
+                end
 
-                        #mermaid-1771332614582 .edge-animation-fast {
-                            stroke-dasharray: 9, 5 !important;
-                            stroke-dashoffset: 900;
-                            animation: dash 20s linear infinite;
-                            stroke-linecap: round;
-                        }
+                subgraph Phase4 ["Phase 4: Frontend Construction"]
+                W_ScafFront["Workflow: scaffold-frontend.md"]
+                Ag_Arch["Agent: Frontend Architect"]
+                Ag_Front["Agent: Frontend Stylist"]
+                Sk_UI["Skill: UI Construction"]
+                Sk_State["Skill: Client State"]
+                Sk_API_F["Skill: API Construction (Client)"]
+                Art_Shell["App Skeleton/Routes"]
+                Art_AngApp["Angular App src/"]
+                end
 
-                        #mermaid-1771332614582 .error-icon {
-                            fill: #a44141;
-                        }
+                subgraph Phase5 ["Phase 5: Strict Testing"]
+                W_Test["Workflow: auto-test.md"]
+                Ag_QA["Agent: QA Sentinel"]
+                Sk_QA["Skill: Quality Assurance"]
+                Art_Tests["spec files"]
+                Decision_Cov{"Coverage > 80%?"}
+                Ag_Fixer["Agent: Fixer Agent"]
+                end
 
-                        #mermaid-1771332614582 .error-text {
-                            fill: #ddd;
-                            stroke: #ddd;
-                        }
+                subgraph Phase6 ["Phase 6: Quality Gates"]
+                W_RunQA["Workflow: run-qa.md"]
+                Chk_Sec["Security Audit"]
+                Chk_A11y["A11y Audit"]
+                Chk_Sonar["SonarQube Report"]
+                Ag_Fixer_R["Agent: Fixer Agent"]
+                Sk_Rep["Skill: Reporting"]
+                Art_Dash["MIGRATION_DASHBOARD.html"]
+                end
 
-                        #mermaid-1771332614582 .edge-thickness-normal {
-                            stroke-width: 1px;
-                        }
+                subgraph Phase7 ["Phase 7: Delivery"]
+                Script_Parity["Script: parity_checker.py"]
+                End((DEPLOY))
+                end
 
-                        #mermaid-1771332614582 .edge-thickness-thick {
-                            stroke-width: 3.5px;
-                        }
+                %% Edges
+                Start --> RuleNode
+                RuleNode --> W_Audit
 
-                        #mermaid-1771332614582 .edge-pattern-solid {
-                            stroke-dasharray: 0;
-                        }
+                W_Audit --> Ag_Audit
+                Ag_Audit --> Sk_Dec
+                Sk_Dec --> Art_AuditReport
+                Sk_Dec --> Art_FeatInv
 
-                        #mermaid-1771332614582 .edge-thickness-invisible {
-                            stroke-width: 0;
-                            fill: none;
-                        }
+                Art_AuditReport --> W_MigDB
+                W_MigDB --> Ag_Back
+                Ag_Back --> Sk_Data
+                Sk_Data --> Art_Prisma
+                Art_Prisma --> Art_Client
 
-                        #mermaid-1771332614582 .edge-pattern-dashed {
-                            stroke-dasharray: 3;
-                        }
+                Art_Client --> W_ScafBack
+                Art_AuditReport --> W_ScafBack
+                W_ScafBack --> Ag_Back2
+                Ag_Back2 --> Sk_API
+                Sk_API --> Art_OpenAPI
+                Sk_API --> Art_Express
 
-                        #mermaid-1771332614582 .edge-pattern-dotted {
-                            stroke-dasharray: 2;
-                        }
+                Art_OpenAPI --> W_ScafFront
+                Art_FeatInv --> W_ScafFront
+                W_ScafFront --> Ag_Arch
+                Ag_Arch --> Sk_API_F
+                Ag_Arch --> Sk_State
+                Sk_API_F --> Art_Shell
+                Art_Shell --> Ag_Front
+                Ag_Front --> Sk_UI
+                Ag_Front --> Sk_State
+                Sk_UI --> Art_AngApp
+                Sk_State --> Art_AngApp
 
-                        #mermaid-1771332614582 .marker {
-                            fill: lightgrey;
-                            stroke: lightgrey;
-                        }
+                Art_AngApp --> W_Test
+                Art_Express --> W_Test
+                W_Test --> Ag_QA
+                Ag_QA --> Sk_QA
+                Sk_QA --> Art_Tests
+                Art_Tests --> Decision_Cov
 
-                        #mermaid-1771332614582 .marker.cross {
-                            stroke: lightgrey;
-                        }
+                Decision_Cov -- No --> Ag_Fixer
+                Ag_Fixer --> Art_AngApp
+                Decision_Cov -- Yes --> W_RunQA
 
-                        #mermaid-1771332614582 svg {
-                            font-family: "trebuchet ms", verdana, arial, sans-serif;
-                            font-size: 16px;
-                        }
+                W_RunQA --> Chk_Sec
+                W_RunQA --> Chk_A11y
+                W_RunQA --> Chk_Sonar
+                Chk_Sonar --> Ag_Fixer_R
+                Ag_Fixer_R --> Sk_Rep
+                Sk_Rep --> Art_Dash
+                Art_Dash --> Script_Parity
+                Script_Parity --> End
 
-                        #mermaid-1771332614582 p {
-                            margin: 0;
-                        }
+                %% Styles
+                classDef file fill:#1f2937,stroke:#6b7280,color:#e5e7eb,stroke-dasharray: 5 5
+                classDef agent fill:#312e81,stroke:#818cf8,color:#fff
+                classDef skill fill:#831843,stroke:#f472b6,color:#fff
+                classDef workflow fill:#064e3b,stroke:#34d399,color:#fff
 
-                        #mermaid-1771332614582 .label {
-                            font-family: "trebuchet ms", verdana, arial, sans-serif;
-                            color: #ccc;
-                        }
+                %% Class Assignments (Exploded for Safety)
+                class Art_AuditReport file
+                class Art_FeatInv file
+                class Art_Prisma file
+                class Art_Client file
+                class Art_OpenAPI file
+                class Art_Express file
+                class Art_AngApp file
+                class Art_Tests file
+                class RuleNode file
+                class Art_Shell file
+                class Art_Dash file
 
-                        #mermaid-1771332614582 .cluster-label text {
-                            fill: #F9FFFE;
-                        }
+                class Ag_Audit agent
+                class Ag_Back agent
+                class Ag_Back2 agent
+                class Ag_Front agent
+                class Ag_Arch agent
+                class Ag_QA agent
+                class Ag_Fixer agent
+                class Ag_Fixer_R agent
 
-                        #mermaid-1771332614582 .cluster-label span {
-                            color: #F9FFFE;
-                        }
+                class Sk_Dec skill
+                class Sk_Data skill
+                class Sk_API skill
+                class Sk_UI skill
+                class Sk_State skill
+                class Sk_QA skill
+                class Sk_API_F skill
+                class Sk_Rep skill
 
-                        #mermaid-1771332614582 .cluster-label span p {
-                            background-color: transparent;
-                        }
-
-                        #mermaid-1771332614582 .label text,
-                        #mermaid-1771332614582 span {
-                            fill: #ccc;
-                            color: #ccc;
-                        }
-
-                        #mermaid-1771332614582 .node rect,
-                        #mermaid-1771332614582 .node circle,
-                        #mermaid-1771332614582 .node ellipse,
-                        #mermaid-1771332614582 .node polygon,
-                        #mermaid-1771332614582 .node path {
-                            fill: #1f2020;
-                            stroke: #ccc;
-                            stroke-width: 1px;
-                        }
-
-                        #mermaid-1771332614582 .rough-node .label text,
-                        #mermaid-1771332614582 .node .label text,
-                        #mermaid-1771332614582 .image-shape .label,
-                        #mermaid-1771332614582 .icon-shape .label {
-                            text-anchor: middle;
-                        }
-
-                        #mermaid-1771332614582 .node .katex path {
-                            fill: #000;
-                            stroke: #000;
-                            stroke-width: 1px;
-                        }
-
-                        #mermaid-1771332614582 .rough-node .label,
-                        #mermaid-1771332614582 .node .label,
-                        #mermaid-1771332614582 .image-shape .label,
-                        #mermaid-1771332614582 .icon-shape .label {
-                            text-align: center;
-                        }
-
-                        #mermaid-1771332614582 .node.clickable {
-                            cursor: pointer;
-                        }
-
-                        #mermaid-1771332614582 .root .anchor path {
-                            fill: lightgrey !important;
-                            stroke-width: 0;
-                            stroke: lightgrey;
-                        }
-
-                        #mermaid-1771332614582 .arrowheadPath {
-                            fill: lightgrey;
-                        }
-
-                        #mermaid-1771332614582 .edgePath .path {
-                            stroke: lightgrey;
-                            stroke-width: 2.0px;
-                        }
-
-                        #mermaid-1771332614582 .flowchart-link {
-                            stroke: lightgrey;
-                            fill: none;
-                        }
-
-                        #mermaid-1771332614582 .edgeLabel {
-                            background-color: hsl(0, 0%, 34.4117647059%);
-                            text-align: center;
-                        }
-
-                        #mermaid-1771332614582 .edgeLabel p {
-                            background-color: hsl(0, 0%, 34.4117647059%);
-                        }
-
-                        #mermaid-1771332614582 .edgeLabel rect {
-                            opacity: 0.5;
-                            background-color: hsl(0, 0%, 34.4117647059%);
-                            fill: hsl(0, 0%, 34.4117647059%);
-                        }
-
-                        #mermaid-1771332614582 .labelBkg {
-                            background-color: rgba(87.75, 87.75, 87.75, 0.5);
-                        }
-
-                        #mermaid-1771332614582 .cluster rect {
-                            fill: hsl(180, 1.5873015873%, 28.3529411765%);
-                            stroke: rgba(255, 255, 255, 0.25);
-                            stroke-width: 1px;
-                        }
-
-                        #mermaid-1771332614582 .cluster text {
-                            fill: #F9FFFE;
-                        }
-
-                        #mermaid-1771332614582 .cluster span {
-                            color: #F9FFFE;
-                        }
-
-                        #mermaid-1771332614582 div.mermaidTooltip {
-                            position: absolute;
-                            text-align: center;
-                            max-width: 200px;
-                            padding: 2px;
-                            font-family: "trebuchet ms", verdana, arial, sans-serif;
-                            font-size: 12px;
-                            background: hsl(20, 1.5873015873%, 12.3529411765%);
-                            border: 1px solid rgba(255, 255, 255, 0.25);
-                            border-radius: 2px;
-                            pointer-events: none;
-                            z-index: 100;
-                        }
-
-                        #mermaid-1771332614582 .flowchartTitleText {
-                            text-anchor: middle;
-                            font-size: 18px;
-                            fill: #ccc;
-                        }
-
-                        #mermaid-1771332614582 rect.text {
-                            fill: none;
-                            stroke-width: 0;
-                        }
-
-                        #mermaid-1771332614582 .icon-shape,
-                        #mermaid-1771332614582 .image-shape {
-                            background-color: hsl(0, 0%, 34.4117647059%);
-                            text-align: center;
-                        }
-
-                        #mermaid-1771332614582 .icon-shape p,
-                        #mermaid-1771332614582 .image-shape p {
-                            background-color: hsl(0, 0%, 34.4117647059%);
-                            padding: 2px;
-                        }
-
-                        #mermaid-1771332614582 .icon-shape rect,
-                        #mermaid-1771332614582 .image-shape rect {
-                            opacity: 0.5;
-                            background-color: hsl(0, 0%, 34.4117647059%);
-                            fill: hsl(0, 0%, 34.4117647059%);
-                        }
-
-                        #mermaid-1771332614582 .label-icon {
-                            display: inline-block;
-                            height: 1em;
-                            overflow: visible;
-                            vertical-align: -0.125em;
-                        }
-
-                        #mermaid-1771332614582 .node .label-icon path {
-                            fill: currentColor;
-                            stroke: revert;
-                            stroke-width: revert;
-                        }
-
-                        #mermaid-1771332614582 :root {
-                            --mermaid-font-family: "trebuchet ms", verdana, arial, sans-serif;
-                        }
-
-                        #mermaid-1771332614582 .agent&gt;
-
-                        * {
-                            fill: #1e1b4b !important;
-                            stroke: #6366f1 !important;
-                            stroke-width: 2px !important;
-                            color: #fff !important;
-                        }
-
-                        #mermaid-1771332614582 .agent span {
-                            fill: #1e1b4b !important;
-                            stroke: #6366f1 !important;
-                            stroke-width: 2px !important;
-                            color: #fff !important;
-                        }
-
-                        #mermaid-1771332614582 .agent tspan {
-                            fill: #fff !important;
-                        }
-
-                        #mermaid-1771332614582 .artifact&gt;
-
-                        * {
-                            fill: #374151 !important;
-                            stroke: #9ca3af !important;
-                            stroke-dasharray: 5 5 !important;
-                            color: #cbd5e1 !important;
-                        }
-
-                        #mermaid-1771332614582 .artifact span {
-                            fill: #374151 !important;
-                            stroke: #9ca3af !important;
-                            stroke-dasharray: 5 5 !important;
-                            color: #cbd5e1 !important;
-                        }
-
-                        #mermaid-1771332614582 .artifact tspan {
-                            fill: #cbd5e1 !important;
-                        }
-                    </style>
-                    <g>
-                        <marker id="mermaid-1771332614582_flowchart-v2-pointEnd" class="marker flowchart-v2"
-                            viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8"
-                            markerHeight="8" orient="auto">
-                            <path d="M 0 0 L 10 5 L 0 10 z" class="arrowMarkerPath"
-                                style="stroke-width: 1; stroke-dasharray: 1, 0;"></path>
-                        </marker>
-                        <marker id="mermaid-1771332614582_flowchart-v2-pointStart" class="marker flowchart-v2"
-                            viewBox="0 0 10 10" refX="4.5" refY="5" markerUnits="userSpaceOnUse" markerWidth="8"
-                            markerHeight="8" orient="auto">
-                            <path d="M 0 5 L 10 10 L 10 0 z" class="arrowMarkerPath"
-                                style="stroke-width: 1; stroke-dasharray: 1, 0;"></path>
-                        </marker>
-                        <marker id="mermaid-1771332614582_flowchart-v2-circleEnd" class="marker flowchart-v2"
-                            viewBox="0 0 10 10" refX="11" refY="5" markerUnits="userSpaceOnUse" markerWidth="11"
-                            markerHeight="11" orient="auto">
-                            <circle cx="5" cy="5" r="5" class="arrowMarkerPath"
-                                style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle>
-                        </marker>
-                        <marker id="mermaid-1771332614582_flowchart-v2-circleStart" class="marker flowchart-v2"
-                            viewBox="0 0 10 10" refX="-1" refY="5" markerUnits="userSpaceOnUse" markerWidth="11"
-                            markerHeight="11" orient="auto">
-                            <circle cx="5" cy="5" r="5" class="arrowMarkerPath"
-                                style="stroke-width: 1; stroke-dasharray: 1, 0;"></circle>
-                        </marker>
-                        <marker id="mermaid-1771332614582_flowchart-v2-crossEnd" class="marker cross flowchart-v2"
-                            viewBox="0 0 11 11" refX="12" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11"
-                            markerHeight="11" orient="auto">
-                            <path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath"
-                                style="stroke-width: 2; stroke-dasharray: 1, 0;"></path>
-                        </marker>
-                        <marker id="mermaid-1771332614582_flowchart-v2-crossStart" class="marker cross flowchart-v2"
-                            viewBox="0 0 11 11" refX="-1" refY="5.2" markerUnits="userSpaceOnUse" markerWidth="11"
-                            markerHeight="11" orient="auto">
-                            <path d="M 1,1 l 9,9 M 10,1 l -9,9" class="arrowMarkerPath"
-                                style="stroke-width: 2; stroke-dasharray: 1, 0;"></path>
-                        </marker>
-                        <g class="root">
-                            <g class="clusters">
-                                <g class="cluster " id="subGraph3" data-look="classic">
-                                    <rect style="" x="311.4140625" y="1705.8125" width="444.625" height="580.390625">
-                                    </rect>
-                                    <g class="cluster-label " transform="translate(457.046875, 1705.8125)">
-                                        <foreignObject width="153.359375" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="nodeLabel ">
-                                                    <p>🛡️ Quality Assurance</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="cluster " id="subGraph2" data-look="classic">
-                                    <rect style="" x="196.125" y="1295.8125" width="462.45703125" height="360"></rect>
-                                    <g class="cluster-label " transform="translate(333.791015625, 1295.8125)">
-                                        <foreignObject width="187.125" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="nodeLabel ">
-                                                    <p>🎨 Frontend Construction</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="cluster " id="subGraph1" data-look="classic">
-                                    <rect style="" x="8" y="629.8125" width="565.7109375" height="616"></rect>
-                                    <g class="cluster-label " transform="translate(203.30078125, 629.8125)">
-                                        <foreignObject width="175.109375" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="nodeLabel ">
-                                                    <p>🗄️ Backend Engineering</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="cluster " id="subGraph0" data-look="classic">
-                                    <rect style="" x="143.046875" y="219.8125" width="292.71875" height="360"></rect>
-                                    <g class="cluster-label " transform="translate(241.9921875, 219.8125)">
-                                        <foreignObject width="94.828125" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="nodeLabel ">
-                                                    <p>🕵️&zwj;♂️ Discovery</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                            </g>
-                            <g class="edgePaths">
-                                <path
-                                    d="M289.406,65.813L289.406,69.979C289.406,74.146,289.406,82.479,289.406,90.146C289.406,97.813,289.406,104.813,289.406,108.313L289.406,111.813"
-                                    id="L_Start_Rules_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_Start_Rules_0"
-                                    data-points="W3sieCI6Mjg5LjQwNjI1LCJ5Ijo2NS44MTI1fSx7IngiOjI4OS40MDYyNSwieSI6OTAuODEyNX0seyJ4IjoyODkuNDA2MjUsInkiOjExNS44MTI1fV0="
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M289.406,169.813L289.406,173.979C289.406,178.146,289.406,186.479,289.406,194.813C289.406,203.146,289.406,211.479,289.406,219.146C289.406,226.813,289.406,233.813,289.406,237.313L289.406,240.813"
-                                    id="L_Rules_Audit_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_Rules_Audit_0"
-                                    data-points="W3sieCI6Mjg5LjQwNjI1LCJ5IjoxNjkuODEyNX0seyJ4IjoyODkuNDA2MjUsInkiOjE5NC44MTI1fSx7IngiOjI4OS40MDYyNSwieSI6MjE5LjgxMjV9LHsieCI6Mjg5LjQwNjI1LCJ5IjoyNDQuODEyNX1d"
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M289.406,298.813L289.406,304.979C289.406,311.146,289.406,323.479,289.406,335.146C289.406,346.813,289.406,357.813,289.406,363.313L289.406,368.813"
-                                    id="L_Audit_Inventory_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_Audit_Inventory_0"
-                                    data-points="W3sieCI6Mjg5LjQwNjI1LCJ5IjoyOTguODEyNX0seyJ4IjoyODkuNDA2MjUsInkiOjMzNS44MTI1fSx7IngiOjI4OS40MDYyNSwieSI6MzcyLjgxMjV9XQ=="
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M289.406,426.813L289.406,432.979C289.406,439.146,289.406,451.479,289.406,463.146C289.406,474.813,289.406,485.813,289.406,491.313L289.406,496.813"
-                                    id="L_Inventory_Features_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_Inventory_Features_0"
-                                    data-points="W3sieCI6Mjg5LjQwNjI1LCJ5Ijo0MjYuODEyNX0seyJ4IjoyODkuNDA2MjUsInkiOjQ2My44MTI1fSx7IngiOjI4OS40MDYyNSwieSI6NTAwLjgxMjV9XQ=="
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M289.406,554.813L289.406,558.979C289.406,563.146,289.406,571.479,289.406,579.813C289.406,588.146,289.406,596.479,289.406,604.813C289.406,613.146,289.406,621.479,289.406,629.146C289.406,636.813,289.406,643.813,289.406,647.313L289.406,650.813"
-                                    id="L_Features_DB_Phase_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_Features_DB_Phase_0"
-                                    data-points="W3sieCI6Mjg5LjQwNjI1LCJ5Ijo1NTQuODEyNX0seyJ4IjoyODkuNDA2MjUsInkiOjU3OS44MTI1fSx7IngiOjI4OS40MDYyNSwieSI6NjA0LjgxMjV9LHsieCI6Mjg5LjQwNjI1LCJ5Ijo2MjkuODEyNX0seyJ4IjoyODkuNDA2MjUsInkiOjY1NC44MTI1fV0="
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M289.406,708.813L289.406,714.979C289.406,721.146,289.406,733.479,289.406,745.146C289.406,756.813,289.406,767.813,289.406,773.313L289.406,778.813"
-                                    id="L_DB_Phase_Prisma_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_DB_Phase_Prisma_0"
-                                    data-points="W3sieCI6Mjg5LjQwNjI1LCJ5Ijo3MDguODEyNX0seyJ4IjoyODkuNDA2MjUsInkiOjc0NS44MTI1fSx7IngiOjI4OS40MDYyNSwieSI6NzgyLjgxMjV9XQ=="
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M233.214,836.813L220.381,842.979C207.547,849.146,181.879,861.479,169.045,873.146C156.211,884.813,156.211,895.813,156.211,901.313L156.211,906.813"
-                                    id="L_Prisma_Migration_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_Prisma_Migration_0"
-                                    data-points="W3sieCI6MjMzLjIxNDQ3NzUzOTA2MjUsInkiOjgzNi44MTI1fSx7IngiOjE1Ni4yMTA5Mzc1LCJ5Ijo4NzMuODEyNX0seyJ4IjoxNTYuMjEwOTM3NSwieSI6OTEwLjgxMjV9XQ=="
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M345.598,836.813L358.432,842.979C371.266,849.146,396.934,861.479,409.768,873.146C422.602,884.813,422.602,895.813,422.602,901.313L422.602,906.813"
-                                    id="L_Prisma_API_Phase_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_Prisma_API_Phase_0"
-                                    data-points="W3sieCI6MzQ1LjU5ODAyMjQ2MDkzNzUsInkiOjgzNi44MTI1fSx7IngiOjQyMi42MDE1NjI1LCJ5Ijo4NzMuODEyNX0seyJ4Ijo0MjIuNjAxNTYyNSwieSI6OTEwLjgxMjV9XQ=="
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M422.602,964.813L422.602,970.979C422.602,977.146,422.602,989.479,422.602,1001.146C422.602,1012.813,422.602,1023.813,422.602,1029.313L422.602,1034.813"
-                                    id="L_API_Phase_Express_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_API_Phase_Express_0"
-                                    data-points="W3sieCI6NDIyLjYwMTU2MjUsInkiOjk2NC44MTI1fSx7IngiOjQyMi42MDE1NjI1LCJ5IjoxMDAxLjgxMjV9LHsieCI6NDIyLjYwMTU2MjUsInkiOjEwMzguODEyNX1d"
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M422.602,1092.813L422.602,1098.979C422.602,1105.146,422.602,1117.479,422.602,1129.146C422.602,1140.813,422.602,1151.813,422.602,1157.313L422.602,1162.813"
-                                    id="L_Express_Swagger_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_Express_Swagger_0"
-                                    data-points="W3sieCI6NDIyLjYwMTU2MjUsInkiOjEwOTIuODEyNX0seyJ4Ijo0MjIuNjAxNTYyNSwieSI6MTEyOS44MTI1fSx7IngiOjQyMi42MDE1NjI1LCJ5IjoxMTY2LjgxMjV9XQ=="
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M422.602,1220.813L422.602,1224.979C422.602,1229.146,422.602,1237.479,422.602,1245.813C422.602,1254.146,422.602,1262.479,422.602,1270.813C422.602,1279.146,422.602,1287.479,422.602,1295.146C422.602,1302.813,422.602,1309.813,422.602,1313.313L422.602,1316.813"
-                                    id="L_Swagger_FE_Phase_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_Swagger_FE_Phase_0"
-                                    data-points="W3sieCI6NDIyLjYwMTU2MjUsInkiOjEyMjAuODEyNX0seyJ4Ijo0MjIuNjAxNTYyNSwieSI6MTI0NS44MTI1fSx7IngiOjQyMi42MDE1NjI1LCJ5IjoxMjcwLjgxMjV9LHsieCI6NDIyLjYwMTU2MjUsInkiOjEyOTUuODEyNX0seyJ4Ijo0MjIuNjAxNTYyNSwieSI6MTMyMC44MTI1fV0="
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M422.602,1374.813L422.602,1380.979C422.602,1387.146,422.602,1399.479,422.602,1411.146C422.602,1422.813,422.602,1433.813,422.602,1439.313L422.602,1444.813"
-                                    id="L_FE_Phase_Scaffolding_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_FE_Phase_Scaffolding_0"
-                                    data-points="W3sieCI6NDIyLjYwMTU2MjUsInkiOjEzNzQuODEyNX0seyJ4Ijo0MjIuNjAxNTYyNSwieSI6MTQxMS44MTI1fSx7IngiOjQyMi42MDE1NjI1LCJ5IjoxNDQ4LjgxMjV9XQ=="
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M378.458,1502.813L368.376,1508.979C358.294,1515.146,338.129,1527.479,328.047,1539.146C317.965,1550.813,317.965,1561.813,317.965,1567.313L317.965,1572.813"
-                                    id="L_Scaffolding_Templates_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_Scaffolding_Templates_0"
-                                    data-points="W3sieCI6Mzc4LjQ1Nzk0Njc3NzM0Mzc1LCJ5IjoxNTAyLjgxMjV9LHsieCI6MzE3Ljk2NDg0Mzc1LCJ5IjoxNTM5LjgxMjV9LHsieCI6MzE3Ljk2NDg0Mzc1LCJ5IjoxNTc2LjgxMjV9XQ=="
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M466.745,1502.813L476.827,1508.979C486.91,1515.146,507.074,1527.479,517.156,1539.146C527.238,1550.813,527.238,1561.813,527.238,1567.313L527.238,1572.813"
-                                    id="L_Scaffolding_Logic_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_Scaffolding_Logic_0"
-                                    data-points="W3sieCI6NDY2Ljc0NTE3ODIyMjY1NjI1LCJ5IjoxNTAyLjgxMjV9LHsieCI6NTI3LjIzODI4MTI1LCJ5IjoxNTM5LjgxMjV9LHsieCI6NTI3LjIzODI4MTI1LCJ5IjoxNTc2LjgxMjV9XQ=="
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M527.238,1630.813L527.238,1634.979C527.238,1639.146,527.238,1647.479,527.238,1655.813C527.238,1664.146,527.238,1672.479,527.238,1680.813C527.238,1689.146,527.238,1697.479,527.238,1705.146C527.238,1712.813,527.238,1719.813,527.238,1723.313L527.238,1726.813"
-                                    id="L_Logic_Test_Phase_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_Logic_Test_Phase_0"
-                                    data-points="W3sieCI6NTI3LjIzODI4MTI1LCJ5IjoxNjMwLjgxMjV9LHsieCI6NTI3LjIzODI4MTI1LCJ5IjoxNjU1LjgxMjV9LHsieCI6NTI3LjIzODI4MTI1LCJ5IjoxNjgwLjgxMjV9LHsieCI6NTI3LjIzODI4MTI1LCJ5IjoxNzA1LjgxMjV9LHsieCI6NTI3LjIzODI4MTI1LCJ5IjoxNzMwLjgxMjV9XQ=="
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M527.238,1784.813L527.238,1790.979C527.238,1797.146,527.238,1809.479,527.238,1821.146C527.238,1832.813,527.238,1843.813,527.238,1849.313L527.238,1854.813"
-                                    id="L_Test_Phase_UnitTests_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_Test_Phase_UnitTests_0"
-                                    data-points="W3sieCI6NTI3LjIzODI4MTI1LCJ5IjoxNzg0LjgxMjV9LHsieCI6NTI3LjIzODI4MTI1LCJ5IjoxODIxLjgxMjV9LHsieCI6NTI3LjIzODI4MTI1LCJ5IjoxODU4LjgxMjV9XQ=="
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M574.73,1912.813L582.059,1916.979C589.387,1921.146,604.045,1929.479,611.374,1937.146C618.703,1944.813,618.703,1951.813,618.703,1955.313L618.703,1958.813"
-                                    id="L_UnitTests_Coverage_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_UnitTests_Coverage_0"
-                                    data-points="W3sieCI6NTc0LjcyOTY0MjQyNzg4NDYsInkiOjE5MTIuODEyNX0seyJ4Ijo2MTguNzAzMTI1LCJ5IjoxOTM3LjgxMjV9LHsieCI6NjE4LjcwMzEyNSwieSI6MTk2Mi44MTI1fV0="
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M580.641,2095.141L570.539,2107.652C560.437,2120.162,540.232,2145.183,521.863,2163.477C503.494,2181.772,486.96,2193.341,478.693,2199.125L470.427,2204.91"
-                                    id="L_Coverage_Fixer_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_Coverage_Fixer_0"
-                                    data-points="W3sieCI6NTgwLjY0MTQ5NDIyMjMxNzUsInkiOjIwOTUuMTQxNDk0MjIyMzE3M30seyJ4Ijo1MjAuMDI3MzQzNzUsInkiOjIxNzAuMjAzMTI1fSx7IngiOjQ2Ny4xNDkyMzA5NTcwMzEyNSwieSI6MjIwNy4yMDMxMjV9XQ=="
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M422.361,2207.203L420.945,2201.036C419.529,2194.87,416.696,2182.536,415.28,2156.004C413.863,2129.471,413.863,2088.74,413.863,2050.008C413.863,2011.276,413.863,1974.544,422.342,1952.29C430.82,1930.035,447.778,1922.258,456.256,1918.369L464.735,1914.48"
-                                    id="L_Fixer_UnitTests_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_Fixer_UnitTests_0"
-                                    data-points="W3sieCI6NDIyLjM2MTI2NzA4OTg0Mzc1LCJ5IjoyMjA3LjIwMzEyNX0seyJ4Ijo0MTMuODYzMjgxMjUsInkiOjIxNzAuMjAzMTI1fSx7IngiOjQxMy44NjMyODEyNSwieSI6MjA0OC4wMDc4MTI1fSx7IngiOjQxMy44NjMyODEyNSwieSI6MTkzNy44MTI1fSx7IngiOjQ2OC4zNzA0OTI3ODg0NjE1NSwieSI6MTkxMi44MTI1fV0="
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M630.873,2121.034L632.238,2129.229C633.604,2137.424,636.335,2153.813,637.701,2167.508C639.066,2181.203,639.066,2192.203,639.066,2197.703L639.066,2203.203"
-                                    id="L_Coverage_Gate_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_Coverage_Gate_0"
-                                    data-points="W3sieCI6NjMwLjg3MjU0OTk2NDAzNjEsInkiOjIxMjEuMDMzNzAwMDM1OTYzNn0seyJ4Ijo2MzkuMDY2NDA2MjUsInkiOjIxNzAuMjAzMTI1fSx7IngiOjYzOS4wNjY0MDYyNSwieSI6MjIwNy4yMDMxMjV9XQ=="
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                                <path
-                                    d="M639.066,2261.203L639.066,2265.37C639.066,2269.536,639.066,2277.87,639.066,2286.203C639.066,2294.536,639.066,2302.87,639.066,2310.536C639.066,2318.203,639.066,2325.203,639.066,2328.703L639.066,2332.203"
-                                    id="L_Gate_End_0"
-                                    class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link"
-                                    style=";" data-edge="true" data-et="edge" data-id="L_Gate_End_0"
-                                    data-points="W3sieCI6NjM5LjA2NjQwNjI1LCJ5IjoyMjYxLjIwMzEyNX0seyJ4Ijo2MzkuMDY2NDA2MjUsInkiOjIyODYuMjAzMTI1fSx7IngiOjYzOS4wNjY0MDYyNSwieSI6MjMxMS4yMDMxMjV9LHsieCI6NjM5LjA2NjQwNjI1LCJ5IjoyMzM2LjIwMzEyNX1d"
-                                    marker-end="url(#mermaid-1771332614582_flowchart-v2-pointEnd)"></path>
-                            </g>
-                            <g class="edgeLabels">
-                                <g class="edgeLabel">
-                                    <g class="label" data-id="L_Start_Rules_0" transform="translate(0, 0)">
-                                        <foreignObject width="0" height="0">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel "></span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel">
-                                    <g class="label" data-id="L_Rules_Audit_0" transform="translate(0, 0)">
-                                        <foreignObject width="0" height="0">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel "></span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel" transform="translate(289.40625, 335.8125)">
-                                    <g class="label" data-id="L_Audit_Inventory_0"
-                                        transform="translate(-49.015625, -12)">
-                                        <foreignObject width="98.03125" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel ">
-                                                    <p>Auditor Agent</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel" transform="translate(289.40625, 463.8125)">
-                                    <g class="label" data-id="L_Inventory_Features_0"
-                                        transform="translate(-76.6328125, -12)">
-                                        <foreignObject width="153.265625" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel ">
-                                                    <p>Skill: Legacy Decoder</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel">
-                                    <g class="label" data-id="L_Features_DB_Phase_0" transform="translate(0, 0)">
-                                        <foreignObject width="0" height="0">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel "></span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel" transform="translate(289.40625, 745.8125)">
-                                    <g class="label" data-id="L_DB_Phase_Prisma_0" transform="translate(-65, -12)">
-                                        <foreignObject width="130" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel ">
-                                                    <p>Backend Architect</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel" transform="translate(156.2109375, 873.8125)">
-                                    <g class="label" data-id="L_Prisma_Migration_0"
-                                        transform="translate(-51.796875, -12)">
-                                        <foreignObject width="103.59375" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel ">
-                                                    <p>Skill: Data Eng</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel">
-                                    <g class="label" data-id="L_Prisma_API_Phase_0" transform="translate(0, 0)">
-                                        <foreignObject width="0" height="0">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel "></span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel" transform="translate(422.6015625, 1001.8125)">
-                                    <g class="label" data-id="L_API_Phase_Express_0" transform="translate(-65, -12)">
-                                        <foreignObject width="130" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel ">
-                                                    <p>Backend Architect</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel" transform="translate(422.6015625, 1129.8125)">
-                                    <g class="label" data-id="L_Express_Swagger_0"
-                                        transform="translate(-79.0234375, -12)">
-                                        <foreignObject width="158.046875" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel ">
-                                                    <p>Skill: API Construction</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel">
-                                    <g class="label" data-id="L_Swagger_FE_Phase_0" transform="translate(0, 0)">
-                                        <foreignObject width="0" height="0">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel "></span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel" transform="translate(422.6015625, 1411.8125)">
-                                    <g class="label" data-id="L_FE_Phase_Scaffolding_0"
-                                        transform="translate(-56.765625, -12)">
-                                        <foreignObject width="113.53125" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel ">
-                                                    <p>Frontend Stylist</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel" transform="translate(317.96484375, 1539.8125)">
-                                    <g class="label" data-id="L_Scaffolding_Templates_0"
-                                        transform="translate(-75.4765625, -12)">
-                                        <foreignObject width="150.953125" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel ">
-                                                    <p>Skill: UI Construction</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel" transform="translate(527.23828125, 1539.8125)">
-                                    <g class="label" data-id="L_Scaffolding_Logic_0"
-                                        transform="translate(-62.734375, -12)">
-                                        <foreignObject width="125.46875" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel ">
-                                                    <p>Skill: Client State</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel">
-                                    <g class="label" data-id="L_Logic_Test_Phase_0" transform="translate(0, 0)">
-                                        <foreignObject width="0" height="0">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel "></span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel" transform="translate(527.23828125, 1821.8125)">
-                                    <g class="label" data-id="L_Test_Phase_UnitTests_0"
-                                        transform="translate(-41.2265625, -12)">
-                                        <foreignObject width="82.453125" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel ">
-                                                    <p>QA Sentinel</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel">
-                                    <g class="label" data-id="L_UnitTests_Coverage_0" transform="translate(0, 0)">
-                                        <foreignObject width="0" height="0">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel "></span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel" transform="translate(530.06129, 2157.77757)">
-                                    <g class="label" data-id="L_Coverage_Fixer_0"
-                                        transform="translate(-9.3984375, -12)">
-                                        <foreignObject width="18.796875" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel ">
-                                                    <p>No</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel" transform="translate(413.86328125, 2048.0078125)">
-                                    <g class="label" data-id="L_Fixer_UnitTests_0"
-                                        transform="translate(-62.734375, -12)">
-                                        <foreignObject width="125.46875" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel ">
-                                                    <p>Skill: Client State</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel" transform="translate(639.06640625, 2170.203125)">
-                                    <g class="label" data-id="L_Coverage_Gate_0" transform="translate(-11.328125, -12)">
-                                        <foreignObject width="22.65625" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel ">
-                                                    <p>Yes</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="edgeLabel">
-                                    <g class="label" data-id="L_Gate_End_0" transform="translate(0, 0)">
-                                        <foreignObject width="0" height="0">
-                                            <div xmlns="http://www.w3.org/1999/xhtml" class="labelBkg"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="edgeLabel "></span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                            </g>
-                            <g class="nodes">
-                                <g class="node default  " id="flowchart-Start-0"
-                                    transform="translate(289.40625, 36.90625)">
-                                    <circle class="basic label-container"
-                                        style="fill:#10b981 !important;stroke:#059669 !important" r="28.90625" cx="0"
-                                        cy="0"></circle>
-                                    <g class="label" style="color:#fff !important"
-                                        transform="translate(-21.40625, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="42.8125" height="24">
-                                            <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
-                                                xmlns="http://www.w3.org/1999/xhtml"><span style="color:#fff !important"
-                                                    class="nodeLabel ">
-                                                    <p>START</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default" id="flowchart-End-1"
-                                    transform="translate(639.06640625, 2371.359375)">
-                                    <circle class="basic label-container"
-                                        style="fill:#10b981 !important;stroke:#059669 !important" r="35.15625" cx="0"
-                                        cy="0"></circle>
-                                    <g class="label" style="color:#fff !important"
-                                        transform="translate(-27.65625, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="55.3125" height="24">
-                                            <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
-                                                xmlns="http://www.w3.org/1999/xhtml"><span style="color:#fff !important"
-                                                    class="nodeLabel ">
-                                                    <p>DEPLOY</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default  " id="flowchart-Rules-3"
-                                    transform="translate(289.40625, 142.8125)">
-                                    <rect class="basic label-container" style="" x="-85.828125" y="-27"
-                                        width="171.65625" height="54"></rect>
-                                    <g class="label" style="" transform="translate(-55.828125, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="111.65625" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="nodeLabel ">
-                                                    <p>Read RULES.md</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default agent" id="flowchart-Audit-5"
-                                    transform="translate(289.40625, 271.8125)">
-                                    <rect class="basic label-container"
-                                        style="fill:#1e1b4b !important;stroke:#6366f1 !important;stroke-width:2px !important"
-                                        x="-101.2734375" y="-27" width="202.546875" height="54"></rect>
-                                    <g class="label" style="color:#fff !important"
-                                        transform="translate(-71.2734375, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="142.546875" height="24">
-                                            <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
-                                                xmlns="http://www.w3.org/1999/xhtml"><span style="color:#fff !important"
-                                                    class="nodeLabel ">
-                                                    <p>Phase 1: Deep Audit</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default artifact" id="flowchart-Inventory-7"
-                                    transform="translate(289.40625, 399.8125)">
-                                    <rect class="basic label-container"
-                                        style="fill:#374151 !important;stroke:#9ca3af !important;stroke-dasharray:5 5 !important"
-                                        x="-91.703125" y="-27" width="183.40625" height="54"></rect>
-                                    <g class="label" style="color:#cbd5e1 !important"
-                                        transform="translate(-61.703125, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="123.40625" height="24">
-                                            <div style="color: rgb(203, 213, 225) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
-                                                xmlns="http://www.w3.org/1999/xhtml"><span
-                                                    style="color:#cbd5e1 !important" class="nodeLabel ">
-                                                    <p>audit-report.json</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default artifact" id="flowchart-Features-9"
-                                    transform="translate(289.40625, 527.8125)">
-                                    <rect class="basic label-container"
-                                        style="fill:#374151 !important;stroke:#9ca3af !important;stroke-dasharray:5 5 !important"
-                                        x="-111.359375" y="-27" width="222.71875" height="54"></rect>
-                                    <g class="label" style="color:#cbd5e1 !important"
-                                        transform="translate(-81.359375, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="162.71875" height="24">
-                                            <div style="color: rgb(203, 213, 225) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
-                                                xmlns="http://www.w3.org/1999/xhtml"><span
-                                                    style="color:#cbd5e1 !important" class="nodeLabel ">
-                                                    <p>feature_inventory.json</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default agent" id="flowchart-DB_Phase-11"
-                                    transform="translate(289.40625, 681.8125)">
-                                    <rect class="basic label-container"
-                                        style="fill:#1e1b4b !important;stroke:#6366f1 !important;stroke-width:2px !important"
-                                        x="-121.125" y="-27" width="242.25" height="54"></rect>
-                                    <g class="label" style="color:#fff !important" transform="translate(-91.125, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="182.25" height="24">
-                                            <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
-                                                xmlns="http://www.w3.org/1999/xhtml"><span style="color:#fff !important"
-                                                    class="nodeLabel ">
-                                                    <p>Phase 2: Data Foundation</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default artifact" id="flowchart-Prisma-13"
-                                    transform="translate(289.40625, 809.8125)">
-                                    <rect class="basic label-container"
-                                        style="fill:#374151 !important;stroke:#9ca3af !important;stroke-dasharray:5 5 !important"
-                                        x="-115.15625" y="-27" width="230.3125" height="54"></rect>
-                                    <g class="label" style="color:#cbd5e1 !important"
-                                        transform="translate(-85.15625, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="170.3125" height="24">
-                                            <div style="color: rgb(203, 213, 225) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
-                                                xmlns="http://www.w3.org/1999/xhtml"><span
-                                                    style="color:#cbd5e1 !important" class="nodeLabel ">
-                                                    <p>Prisma Schema &amp; Client</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default artifact" id="flowchart-Migration-15"
-                                    transform="translate(156.2109375, 937.8125)">
-                                    <rect class="basic label-container"
-                                        style="fill:#374151 !important;stroke:#9ca3af !important;stroke-dasharray:5 5 !important"
-                                        x="-105.296875" y="-27" width="210.59375" height="54"></rect>
-                                    <g class="label" style="color:#cbd5e1 !important"
-                                        transform="translate(-75.296875, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="150.59375" height="24">
-                                            <div style="color: rgb(203, 213, 225) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
-                                                xmlns="http://www.w3.org/1999/xhtml"><span
-                                                    style="color:#cbd5e1 !important" class="nodeLabel ">
-                                                    <p>SQL Migration Scripts</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default agent " id="flowchart-API_Phase-17"
-                                    transform="translate(422.6015625, 937.8125)">
-                                    <rect class="basic label-container"
-                                        style="fill:#1e1b4b !important;stroke:#6366f1 !important;stroke-width:2px !important"
-                                        x="-111.09375" y="-27" width="222.1875" height="54"></rect>
-                                    <g class="label" style="color:#fff !important"
-                                        transform="translate(-81.09375, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="162.1875" height="24">
-                                            <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
-                                                xmlns="http://www.w3.org/1999/xhtml"><span style="color:#fff !important"
-                                                    class="nodeLabel ">
-                                                    <p>Phase 3: Backend Core</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default artifact" id="flowchart-Express-19"
-                                    transform="translate(422.6015625, 1065.8125)">
-                                    <rect class="basic label-container"
-                                        style="fill:#374151 !important;stroke:#9ca3af !important;stroke-dasharray:5 5 !important"
-                                        x="-93.734375" y="-27" width="187.46875" height="54"></rect>
-                                    <g class="label" style="color:#cbd5e1 !important"
-                                        transform="translate(-63.734375, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="127.46875" height="24">
-                                            <div style="color: rgb(203, 213, 225) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
-                                                xmlns="http://www.w3.org/1999/xhtml"><span
-                                                    style="color:#cbd5e1 !important" class="nodeLabel ">
-                                                    <p>Express App &amp; API</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default artifact " id="flowchart-Swagger-21"
-                                    transform="translate(422.6015625, 1193.8125)">
-                                    <rect class="basic label-container"
-                                        style="fill:#374151 !important;stroke:#9ca3af !important;stroke-dasharray:5 5 !important"
-                                        x="-76.203125" y="-27" width="152.40625" height="54"></rect>
-                                    <g class="label" style="color:#cbd5e1 !important"
-                                        transform="translate(-46.203125, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="92.40625" height="24">
-                                            <div style="color: rgb(203, 213, 225) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
-                                                xmlns="http://www.w3.org/1999/xhtml"><span
-                                                    style="color:#cbd5e1 !important" class="nodeLabel ">
-                                                    <p>openapi.json</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default agent " id="flowchart-FE_Phase-23"
-                                    transform="translate(422.6015625, 1347.8125)">
-                                    <rect class="basic label-container"
-                                        style="fill:#1e1b4b !important;stroke:#6366f1 !important;stroke-width:2px !important"
-                                        x="-94.5546875" y="-27" width="189.109375" height="54"></rect>
-                                    <g class="label" style="color:#fff !important"
-                                        transform="translate(-64.5546875, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="129.109375" height="24">
-                                            <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
-                                                xmlns="http://www.w3.org/1999/xhtml"><span style="color:#fff !important"
-                                                    class="nodeLabel ">
-                                                    <p>Phase 4: Frontend</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default  " id="flowchart-Scaffolding-25"
-                                    transform="translate(422.6015625, 1475.8125)">
-                                    <rect class="basic label-container" style="" x="-103.546875" y="-27"
-                                        width="207.09375" height="54"></rect>
-                                    <g class="label" style="" transform="translate(-73.546875, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="147.09375" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="nodeLabel ">
-                                                    <p>Angular Components</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default artifact " id="flowchart-Templates-27"
-                                    transform="translate(317.96484375, 1603.8125)">
-                                    <rect class="basic label-container"
-                                        style="fill:#374151 !important;stroke:#9ca3af !important;stroke-dasharray:5 5 !important"
-                                        x="-70.1328125" y="-27" width="140.265625" height="54"></rect>
-                                    <g class="label" style="color:#cbd5e1 !important"
-                                        transform="translate(-40.1328125, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="80.265625" height="24">
-                                            <div style="color: rgb(203, 213, 225) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
-                                                xmlns="http://www.w3.org/1999/xhtml"><span
-                                                    style="color:#cbd5e1 !important" class="nodeLabel ">
-                                                    <p>HTML/SCSS</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default artifact " id="flowchart-Logic-29"
-                                    transform="translate(527.23828125, 1603.8125)">
-                                    <rect class="basic label-container"
-                                        style="fill:#374151 !important;stroke:#9ca3af !important;stroke-dasharray:5 5 !important"
-                                        x="-89.140625" y="-27" width="178.28125" height="54"></rect>
-                                    <g class="label" style="color:#cbd5e1 !important"
-                                        transform="translate(-59.140625, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="118.28125" height="24">
-                                            <div style="color: rgb(203, 213, 225) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
-                                                xmlns="http://www.w3.org/1999/xhtml"><span
-                                                    style="color:#cbd5e1 !important" class="nodeLabel ">
-                                                    <p>Signals/Zoneless</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default agent " id="flowchart-Test_Phase-31"
-                                    transform="translate(527.23828125, 1757.8125)">
-                                    <rect class="basic label-container"
-                                        style="fill:#1e1b4b !important;stroke:#6366f1 !important;stroke-width:2px !important"
-                                        x="-87.1640625" y="-27" width="174.328125" height="54"></rect>
-                                    <g class="label" style="color:#fff !important"
-                                        transform="translate(-57.1640625, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="114.328125" height="24">
-                                            <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
-                                                xmlns="http://www.w3.org/1999/xhtml"><span style="color:#fff !important"
-                                                    class="nodeLabel ">
-                                                    <p>Phase 5: Testing</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default artifact " id="flowchart-UnitTests-33"
-                                    transform="translate(527.23828125, 1885.8125)">
-                                    <rect class="basic label-container"
-                                        style="fill:#374151 !important;stroke:#9ca3af !important;stroke-dasharray:5 5 !important"
-                                        x="-64.515625" y="-27" width="129.03125" height="54"></rect>
-                                    <g class="label" style="color:#cbd5e1 !important"
-                                        transform="translate(-34.515625, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="69.03125" height="24">
-                                            <div style="color: rgb(203, 213, 225) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
-                                                xmlns="http://www.w3.org/1999/xhtml"><span
-                                                    style="color:#cbd5e1 !important" class="nodeLabel ">
-                                                    <p>Jest Tests</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default  " id="flowchart-Coverage-35"
-                                    transform="translate(618.703125, 2048.0078125)">
-                                    <polygon
-                                        points="85.1953125,0 170.390625,-85.1953125 85.1953125,-170.390625 0,-85.1953125"
-                                        class="label-container" transform="translate(-84.6953125, 85.1953125)">
-                                    </polygon>
-                                    <g class="label" style="" transform="translate(-58.1953125, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="116.390625" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="nodeLabel ">
-                                                    <p>Coverage &gt; 80%?</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default agent " id="flowchart-Fixer-37"
-                                    transform="translate(428.5625, 2234.203125)">
-                                    <rect class="basic label-container"
-                                        style="fill:#1e1b4b !important;stroke:#6366f1 !important;stroke-width:2px !important"
-                                        x="-70.5703125" y="-27" width="141.140625" height="54"></rect>
-                                    <g class="label" style="color:#fff !important"
-                                        transform="translate(-40.5703125, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="81.140625" height="24">
-                                            <div style="color: rgb(255, 255, 255) !important; display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;"
-                                                xmlns="http://www.w3.org/1999/xhtml"><span style="color:#fff !important"
-                                                    class="nodeLabel ">
-                                                    <p>Fixer Agent</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                                <g class="node default" id="flowchart-Gate-41"
-                                    transform="translate(639.06640625, 2234.203125)">
-                                    <rect class="basic label-container" style="" x="-76.78125" y="-27" width="153.5625"
-                                        height="54"></rect>
-                                    <g class="label" style="" transform="translate(-46.78125, -12)">
-                                        <rect></rect>
-                                        <foreignObject width="93.5625" height="24">
-                                            <div xmlns="http://www.w3.org/1999/xhtml"
-                                                style="display: table-cell; white-space: nowrap; line-height: 1.5; max-width: 200px; text-align: center;">
-                                                <span class="nodeLabel ">
-                                                    <p>Release Gate</p>
-                                                </span></div>
-                                        </foreignObject>
-                                    </g>
-                                </g>
-                            </g>
-                        </g>
-                    </g>
-                </svg></div>
+                class W_Audit workflow
+                class W_MigDB workflow
+                class W_ScafBack workflow
+                class W_ScafFront workflow
+                class W_Test workflow
+                class W_RunQA workflow
+            </div>
         </div>
     </section>
 
     <!-- SECTION 4: HIERARCHICAL TABLE (ALL COMPONENTS) -->
-    <section>
+    <section id="hierarchy">
         <h2 class="section-title">4. Master Execution Heirarchy & Role</h2>
         <div class="glass-panel">
             <table>
@@ -1779,13 +945,21 @@
                     <tr>
                         <td>13</td>
                         <td>Agent</td>
-                        <td>Frontend Stylist</td>
-                        <td>Builds the Angular Application.</td>
+                        <td>Frontend Architect</td>
+                        <td>Sets up App Skeleton, Routes, and Config.</td>
                         <td>scaffold-frontend.md</td>
-                        <td>Angular App</td>
+                        <td>App Foundation</td>
                     </tr>
                     <tr>
                         <td>14</td>
+                        <td>Agent</td>
+                        <td>Frontend Stylist</td>
+                        <td>Builds the UI and Visual Components.</td>
+                        <td>App Foundation</td>
+                        <td>Angular Views</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
                         <td>Skill</td>
                         <td>UI Construction</td>
                         <td>Generates HTML templates and SCSS styles.</td>
@@ -1793,17 +967,17 @@
                         <td>Templates</td>
                     </tr>
                     <tr>
-                        <td>15</td>
+                        <td>16</td>
                         <td>Skill</td>
                         <td>Client State</td>
                         <td>Implements Signals, Inputs, Outputs, and Logic.</td>
-                        <td>Stylist Request</td>
+                        <td>Stylist/Arch Request</td>
                         <td>Signals Logic</td>
                     </tr>
 
                     <!-- Phase 5-6 -->
                     <tr>
-                        <td>16</td>
+                        <td>17</td>
                         <td>Workflow</td>
                         <td>auto-test.md</td>
                         <td>Sub-workflow for Phase 5 (Testing).</td>
@@ -1811,7 +985,7 @@
                         <td>Trigger Agent</td>
                     </tr>
                     <tr>
-                        <td>17</td>
+                        <td>18</td>
                         <td>Agent</td>
                         <td>QA Sentinel</td>
                         <td>Enforces quality gates (Coverage, Security).</td>
@@ -1819,7 +993,7 @@
                         <td>Test Report</td>
                     </tr>
                     <tr>
-                        <td>18</td>
+                        <td>19</td>
                         <td>Skill</td>
                         <td>Quality Assurance</td>
                         <td>Configures Jest, Supertest, Axe, and Sonar.</td>
@@ -1827,7 +1001,7 @@
                         <td>Test Suites</td>
                     </tr>
                     <tr>
-                        <td>19</td>
+                        <td>20</td>
                         <td>Agent</td>
                         <td>Fixer Agent</td>
                         <td>Heals code that fails tests or linting.</td>
@@ -1835,7 +1009,17 @@
                         <td>Patched Code</td>
                     </tr>
                     <tr>
-                        <td>20</td>
+                        <td>21</td>
+                        <td>Skill</td>
+                        <td>Reporting</td>
+                        <td>Generates the Migration Dashboard and visualizes metrics.</td>
+                        <td>Fixer/QA Request</td>
+                        <td>MIGRATION_DASHBOARD.html</td>
+                    </tr>
+
+                    <!-- Phase 7 -->
+                    <tr>
+                        <td>22</td>
                         <td>Script</td>
                         <td>parity_checker.py</td>
                         <td>Verifies 100% data fidelity between Legacy and New DB.</td>
@@ -1848,7 +1032,7 @@
     </section>
 
     <!-- SECTION 5: TECH STACK (UPDATED) -->
-    <section>
+    <section id="stack">
         <h2 class="section-title">5. Technology Stack (Definitive)</h2>
         <div class="tech-grid">
             <!-- Core -->
@@ -1941,6 +1125,7 @@
     </footer>
 
     <script>
+        // Init Mermaid
         mermaid.initialize({
             startOnLoad: true,
             theme: 'dark',
@@ -1951,6 +1136,9 @@
                 curve: 'basis'
             }
         });
+
+        // Init Lucide Icons
+        lucide.createIcons();
     </script>
 </body>
 
