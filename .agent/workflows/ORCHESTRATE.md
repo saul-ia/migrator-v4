@@ -1,9 +1,5 @@
 ---
 description: The Master Workflow. Full Technical Stack (Ang21/Node24) with Configurable Flags, Strict Testing, SonarQube, QA & 100% Parity Check.
-model_recommendation:
-  principal: "Claude Sonnet 4.5 (Thinking)"
-  secondary: "Gemini 3 Pro (High)"
-  tertiary: "Claude Sonnet 4.5"
 ---
 
 # 🎼 Workflow: Orchestrate Migration
@@ -15,17 +11,20 @@ model_recommendation:
 > *Default value is `true` for all if not specified.*
 
 * `{{RUN_TESTS}}`: **true** (Executes Jest/Supertest loops with >80% coverage).
-* `{{RUN_SONAR}}`: **true** (Generates `sonar-project.properties` & `lcov.info`).
+* `{{RUN_SONAR}}`: **false** (Generates `sonar-project.properties` & `lcov.info`).
 * `{{RUN_QA_AUDIT}}`: **true** (Executes Security `npm audit` & A11y checks).
 * `{{GENERATE_DOCS}}`: **true** (Generates README & Migration Report).
 * `{{AUTO_START}}`: **true** (Installs dependencies and launches the app at the end).
 
 ### 0.2 Setup & Naming (MANDATORY)
 1.  **Input Variable:** `{{legacy_path_variable}}` (Must be provided).
+    *   **Logic:** If `{{legacy_path_variable}}` ends in `.git` or starts with `http`:
+        *   **Action:** `git clone {{legacy_path_variable}} ./source_legacy_temp`
+        *   **Override:** Set `{{legacy_path_variable}}` = `./source_legacy_temp`
 2.  **Versioning Strategy (Dynamic Naming):**
-    * **Rule:** **NEVER** use generic names like "biblioteca".
-    * **Format:** `[APP_NAME]_[TIMESTAMP]` (e.g., `inventory_20260217_1030`).
-    * **Action:** Create output directory and set as `{{OUTPUT_DIR}}`.
+    *   **Rule:** **NEVER** use generic names like "biblioteca".
+    *   **Format:** `[APP_NAME]_[TIMESTAMP]` (e.g., `inventory_20260217_1030`).
+    *   **Action:** Create output directory and set as `{{OUTPUT_DIR}}`.
 3.  **Context:** STRICTLY FOLLOW rules defined in `.agent/rules/RULES.md`.
 
 ---
